@@ -1,0 +1,5 @@
+Place Pulse 2.0 archive as distributed by the Centre for Collective Learning
+  URL:    https://www.dropbox.com/s/grzoiwsaeqrmc1l/place-pulse-2.0.zip
+  bytes:  2640932754
+  sha256: aeebc8673b7daaa240dc5dda3aaf5c8ae50b12bd3e4c739c5721a63dea125b8c
+  contents used: votes.tsv, studies.tsv, locations.tsv, places.tsv, images/*.JPG (110,988 images)

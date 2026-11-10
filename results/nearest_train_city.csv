@@ -1,0 +1,16 @@
+city,val_city,nearest_train,dist_km,n_train_cities
+Santiago,New York,Valparaiso,100.44471945957224,54
+New York,Toronto,Philadelphia,134.32886745449576,54
+Philadelphia,London,New York,134.32886745449576,54
+Berlin,Rio De Janeiro,Prague,280.55115795135526,54
+Rio De Janeiro,Tokyo,Belo Horizonte,336.9096847829133,54
+London,Atlanta,Paris,344.503101048697,54
+Sao Paulo,Warsaw,Rio De Janeiro,347.24048568877413,54
+Tokyo,Santiago,Kyoto,367.99260337045126,54
+Toronto,Sydney,Montreal,503.3311975256097,54
+Warsaw,Houston,Prague,518.0818249202149,54
+Chicago,Sao Paulo,Minneapolis,567.4026788500306,54
+Sydney,Chicago,Melbourne,705.0481102799272,54
+Moscow,Philadelphia,Kiev,755.806416033125,54
+Atlanta,Berlin,Washington DC,871.4605014699277,54
+Houston,Moscow,Atlanta,1130.8338070972713,54
