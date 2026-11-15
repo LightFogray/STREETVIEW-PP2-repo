@@ -1,8 +1,12 @@
 # Replication package: value of a reference image's voting history for street-safety prediction
 
-This repository accompanies a manuscript under double-anonymous review. It contains the derived
-tables, fold definitions, evaluation scripts and aggregated results needed to reproduce every
-number in the paper. No author-identifying information is included, by design.
+This repository accompanies the manuscript *The Predictive Value of a Reference Image's Voting
+History for Perceived Street Safety in a New City* (Tan, Qian, Li and Jiang), submitted to the
+*ISPRS International Journal of Geo-Information*. It contains the derived tables, fold definitions,
+evaluation scripts and aggregated results needed to reproduce every number in the paper.
+
+If you are reviewing the manuscript: the quickest check is `scripts/audit_all_numbers.py`, which
+re-derives and verifies every reported number against the derived tables in `data/`.
 
 ## What the study does
 
@@ -62,9 +66,17 @@ aggregated files in `results/`).
 | 7 | `bt_history.py` | the opponent-adjusted (Davidson) history summary, three seeds |
 | 8 | `inference_checks.py` | the city-cluster bootstrap interval and the permutation null |
 | 9 | `make_figures.py` | Figures 1 to 4 |
-| 10 | `audit_all_numbers.py` | re-derives and checks every number in the manuscript |
+| 10 | `history_ablation.py` | the H1–H5 history-representation ablation; writes `results/ablation/` |
+| 11 | `ladder_analysis.py` | the encoder ladder of Figure 5, from the per-encoder `converge` outputs |
+| 12 | `ladder_figure.py` | Figure 5 itself |
+| 13 | `audit_all_numbers.py` | re-derives and checks every number in the manuscript |
 
 `shared_scorer_check.py` is the additional comparison head reported in Section 3.
+
+Steps 10 and 11 need the per-encoder runs of step 5: `converge_heads.py` must be executed once
+with `--backbone` set to each of `resnet18`, `convnext_tiny` and `clip_vit_l14`. The resulting
+per-fold files are included under `results/ladder/per_encoder/`, so the ladder can be checked
+without retraining.
 
 ## Reproducing the headline numbers
 

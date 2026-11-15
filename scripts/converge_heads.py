@@ -36,7 +36,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from anchor_history_fusion import (fit_beta, fit_hist_model, hist_logits,
                                    history_quality, logloss)
 
-DATA = Path(r"<PROJECT>/STREETVIEW-PP2/data")
+DATA = Path(r"D:\mycode\crime-temporal-spatio\STREETVIEW-PP2\data")
 LABELS = {"left": 0, "equal": 1, "right": 2}
 
 
@@ -67,12 +67,14 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", type=Path,
                     default=DATA.parent / "outputs" / "converge")
+    ap.add_argument("--features", type=Path,
+                    default=DATA / "features_convnext_tiny.npz")
     args = ap.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     df = pd.read_parquet(DATA / "pairs.parquet")
     folds = json.loads((DATA / "splits" / "logo_folds.json").read_text(encoding="utf-8"))
-    z = np.load(DATA / "features_convnext_tiny.npz")
+    z = np.load(args.features)
     idx = {k: i for i, k in enumerate(z["ids"].tolist())}
     X = torch.from_numpy(z["features"].astype(np.float32)).to(device)
     n_img = X.shape[0]
@@ -96,7 +98,7 @@ def main() -> int:
         te = df[in_t & (~df["same_city"])]
 
         torch.manual_seed(args.seed)
-        model = Head(mode=args.head).to(device)
+        model = Head(dim=int(X.shape[1]), mode=args.head).to(device)
         opt = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-4)
         ia = torch.tensor(tr["_ia"].values, device=device)
         ib = torch.tensor(tr["_ib"].values, device=device)
@@ -151,7 +153,8 @@ def main() -> int:
               f"C={r['C']:.6f} Δ={r['C']-r['A']:+.6f}")
 
     out = pd.DataFrame(rows)
-    tag = f"{args.head}_e{args.epochs}_s{args.seed}"
+    bname = args.features.stem.replace("features_", "")
+    tag = f"{args.head}_e{args.epochs}_s{args.seed}_{bname}"
     out.to_csv(args.out / f"{tag}.csv", index=False)
     d = out["C"] - out["A"]
     print(f"\n用时 {(time.time()-t0)/60:.1f} 分钟")
