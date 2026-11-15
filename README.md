@@ -45,10 +45,13 @@ Two derived files are included:
 ```
 data/       fold definitions, derived vote table, image identifiers, archive checksums
 scripts/    the analysis pipeline, in execution order
-results/    aggregated per-fold outputs behind Tables 2 and 3 and the inference section
-figures/    the four manuscript figures, as vector PDF and 400 dpi PNG
-manuscript/ the submitted main document, title page and supplementary material
+results/    aggregated per-fold outputs behind Tables 2 and 3, Figure 5, the secondary
+            screen in Table S1, and the inference section
+figures/    the five manuscript figures, as vector PDF and 400 dpi PNG
 ```
+
+This repository holds code, derived data and results. The manuscript itself is not
+duplicated here; the submitted version is the one this package accompanies.
 
 ## Scripts and what they produce
 
