@@ -78,6 +78,29 @@ with `--backbone` set to each of `resnet18`, `convnext_tiny` and `clip_vit_l14`.
 per-fold files are included under `results/ladder/per_encoder/`, so the ladder can be checked
 without retraining.
 
+## Head names in the code
+
+The secondary screen and the supplementary table refer to comparison heads by
+description, while the analysis scripts and the result files use short arm names.
+The mapping is:
+
+| Name in the paper | Arm name | Input to the head | Parameters |
+|---|---|---|---:|
+| Feature difference `d = a - b` | `diff` | `f_a - f_b` | 263,427 |
+| Training-frequency weighting | `weighted_diff` | `f_a - f_b`, with the loss of each comparison scaled by the mean training-fold appearance count of its two images, divided by the batch mean and clamped to [0.2, 5] | 263,427 |
+| Difference, sum and elementwise product | `interact` | `f_a - f_b`, `f_a + f_b`, `f_a * f_b` | 263,565 |
+| Difference, absolute difference and squared difference | `diff_control` | `f_a - f_b`, `abs(f_a - f_b)`, `(f_a - f_b)^2` | 263,565 |
+
+The expanded-input heads carry a narrower hidden layer (109 instead of 256) so
+that all four arms sit within 0.05% of the same parameter budget. `settings.json`
+in each screen directory records the optimizer, schedule, batch size, checkpoint
+selection rule and parameter counts for that run.
+
+The three screens behind the supplementary table are in `results/screens/` and
+`results/secondary_head_screen.csv`; the numbers in Table S1 are the means over
+the four epoch checkpoints of each arm, in the `same` (within-city) and `cross`
+(cross-city) test settings.
+
 ## Reproducing the headline numbers
 
 ```

@@ -1,0 +1,39 @@
+{
+  "epochs": 4,
+  "seed": 0,
+  "arms": [
+    "diff",
+    "weighted_diff"
+  ],
+  "optimizer": "AdamW(lr=0.001,weight_decay=0.0001)",
+  "batch_size": 8192,
+  "selection": "lowest validation-city same-pair three-way CE",
+  "parameters": {
+    "diff": 263427,
+    "weighted_diff": 263427
+  },
+  "n_feature_matched_votes": 503291,
+  "fold_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "status": "complete",
+  "swap_augmentation": false,
+  "precision": "float32/high",
+  "feature_source": "features_convnext_tiny.npz",
+  "elapsed_seconds": 69.6894066000823
+}
